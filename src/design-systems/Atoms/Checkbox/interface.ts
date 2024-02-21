@@ -1,3 +1,5 @@
+import { Modify } from "@/interfaces"
+
 export type CheckboxProps = Modify<
   React.HTMLProps<HTMLInputElement>,
   {
