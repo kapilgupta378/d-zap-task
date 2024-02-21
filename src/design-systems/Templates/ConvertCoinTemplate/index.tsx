@@ -146,7 +146,9 @@ const ConvertCoinTemplate = () => {
                     className="text-center text-success-600"
                     size="md"
                   >
-                    {`${convertedAmount} ${formik.values.target.toLocaleUpperCase()}`}
+                    {`${formik.values.amount.toString()} ${
+                      formik.values.source
+                    } is equivalent to ${convertedAmount} ${formik.values.target.toLocaleUpperCase()}`}
                   </Typography>
                 )}
 
