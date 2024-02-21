@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import { DropDownProps } from "./interface";
 import Typography from "../Typography";
 import { DropDownIcon } from "../Icons";
-import { ExploreBlock } from "@/interfaces";
 
 const DropDown: React.FC<DropDownProps> = ({
   className,
@@ -12,7 +11,9 @@ const DropDown: React.FC<DropDownProps> = ({
   onChange,
 }) => {
   const [isHover, setIsHover] = useState<boolean>(false);
-  const [value, setValue] = useState<ExploreBlock>(defaultValue);
+  const [value, setValue] = useState<{ value: string | number; name: string }>(
+    defaultValue
+  );
 
   const handleHover = useCallback(() => {
     setIsHover(true);
@@ -21,7 +22,10 @@ const DropDown: React.FC<DropDownProps> = ({
   const handleLeaveHover = useCallback(() => {
     setIsHover(false);
   }, []);
-  const handleChange = (selectedValue: ExploreBlock) => {
+  const handleChange = (selectedValue: {
+    value: string | number;
+    name: string;
+  }) => {
     setValue(selectedValue);
     onChange?.(selectedValue);
   };

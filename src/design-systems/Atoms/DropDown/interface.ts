@@ -1,6 +1,7 @@
 export interface DropDownProps {
-  data: ExploreBlock[]
-  defaultValue: ExploreBlock
-  onChange: (value: ExploreBlock) => void
-  className?: string
+  data: { value: string | number; name: string }[];
+  defaultValue: { value: string | number; name: string };
+  onChange: (value: any) => void;
+  className?: string;
 }
+  
