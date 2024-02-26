@@ -8,6 +8,10 @@ export function useStakerDetails() {
   const { data, refetch, isLoading } = useReadContract({
     functionName: "getStakerInfo",
     args: [userAddress],
+    query: {
+      refetchInterval: 2,
+      refetchOnReconnect: true,
+    },
     ...StakeContractConfig,
   });
 
@@ -17,9 +21,9 @@ export function useStakerDetails() {
       return {
         exist: dataArray[0],
         stakedAmount: formatUnits(dataArray[1], 6),
-        unclaimedRewards: formatUnits(dataArray[2], 6),
+        unclaimedRewards: formatUnits(dataArray[2], 18),
         claimCheckpoint: formatUnits(dataArray[3], 6),
-        totalRewardsClaimed: formatUnits(dataArray[4], 6),
+        totalRewardsClaimed: formatUnits(dataArray[4], 18),
       };
     } else {
       return {
