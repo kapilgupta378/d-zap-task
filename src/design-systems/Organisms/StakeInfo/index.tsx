@@ -1,9 +1,11 @@
 import Button from "@/design-systems/Atoms/Button";
+import { Tooltip } from "@/design-systems/Atoms/ToolTip";
 import Typography from "@/design-systems/Atoms/Typography";
 import { useClaimReward } from "@/hooks/ContractHooks/useClaimReward";
 import { useUnStake } from "@/hooks/ContractHooks/useStake";
 import { useStakerDetails } from "@/hooks/ContractHooks/useStakerDetails";
 import React from "react";
+import { toast } from "react-toastify";
 
 const StakeInfo = () => {
   const { unStackToken, reset: stakeReset, status: StakeStatus } = useUnStake();
@@ -11,14 +13,24 @@ const StakeInfo = () => {
   const { claimReward, status, reset } = useClaimReward();
 
   const handleUnstack = async () => {
-    stakeReset;
-    await unStackToken();
-    refetch();
+    try {
+      stakeReset;
+      await unStackToken();
+      refetch();
+      toast.success("Token unstake successfully.");
+    } catch (error) {
+      toast.success("Something went wrong please try again later..");
+    }
   };
   const handleClaim = async () => {
-    reset();
-    await claimReward();
-    refetch();
+    try {
+      reset();
+      await claimReward();
+      refetch();
+      toast.success("Reward claim successfully.");
+    } catch (error) {
+      toast.success("Something went wrong please try again later..");
+    }
   };
 
   if (isLoading) {
@@ -68,40 +80,50 @@ const StakeInfo = () => {
       </Typography>
 
       <div className="flex gap-5 mt-12 mb-12 flex-col flex-wrap">
-        <div className="flex gap-5  flex-row ">
-          <div className="bg-white bg-opacity-10 backdrop-blur-152  self-stretch flex w-full justify-between gap-5 px-8 py-6 rounded-sm items-start max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5 w-[50%]">
-            <div className="flex grow basis-[0%] flex-col items-stretch">
+        <div className="flex gap-5  flex-row w-full">
+          <div className="bg-white  bg-opacity-10 backdrop-blur-152  self-stretch flex  justify-between gap-5 px-8 py-6 rounded-sm items-start max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5 w-[50%]">
+            <div className="flex grow basis-[0%] flex-col items-stretch w-full">
               <div className="text-neutral-400 text-lg">Unclaimed Rewards</div>
-              <Typography
-                size="h2"
-                className="text-white  text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
+              <Tooltip
+                message={Number(stakerDetails.unclaimedRewards).toFixed(2)}
               >
-                {Number(stakerDetails.unclaimedRewards).toFixed(2)}
-              </Typography>
+                <Typography
+                  size="h2"
+                  className="text-white w-full truncate text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
+                >
+                  {Number(stakerDetails.unclaimedRewards).toFixed(2)}
+                </Typography>
+              </Tooltip>
             </div>
           </div>
-          <div className="bg-white bg-opacity-10 backdrop-blur-152  self-stretch flex w-full justify-between gap-5 px-8 py-6 rounded-sm items-start max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5 w-[50%]">
-            <div className="flex grow basis-[0%] flex-col items-stretch">
+          <div className="bg-white bg-opacity-10 backdrop-blur-152  self-stretch flex  justify-between gap-5 px-8 py-6 rounded-sm items-start max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5 w-[50%]">
+            <div className="flex grow basis-[0%] flex-col items-stretch w-full">
               <div className="text-neutral-400 text-lg">Total stack</div>
-              <Typography
-                size="h2"
-                className="text-white  text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
-              >
-                {Number(stakerDetails.stakedAmount).toFixed(2)}
-              </Typography>
+              <Tooltip message={Number(stakerDetails.stakedAmount).toFixed(2)}>
+                <Typography
+                  size="h2"
+                  className="text-white !w-full truncate text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
+                >
+                  {Number(stakerDetails.stakedAmount).toFixed(2)}
+                </Typography>
+              </Tooltip>
             </div>
           </div>
         </div>
 
-        <div className="bg-white bg-opacity-10 backdrop-blur-152  flex justify-between gap-5 px-8 py-6 rounded-sm items-start max-md:max-w-full max-md:flex-wrap max-md:px-5 w-[50%]">
-          <div className="flex grow flex-col items-stretch">
+        <div className="bg-white bg-opacity-10 backdrop-blur-152  flex justify-between gap-5 px-8 py-6 rounded-sm items-start  max-md:flex-wrap max-md:px-5 w-[50%]">
+          <div className="flex grow flex-col items-stretch w-full">
             <div className="text-neutral-400 text-lg">Claimed Rewards</div>
-            <Typography
-              size="h2"
-              className="text-white  text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
+            <Tooltip
+              message={Number(stakerDetails.totalRewardsClaimed).toFixed(2)}
             >
-              {Number(stakerDetails.totalRewardsClaimed).toFixed(2)}
-            </Typography>
+              <Typography
+                size="h2"
+                className="text-white truncate !w-full  text-6xl font-semibold leading-10 mt-5 max-md:text-4xl max-md:leading-8"
+              >
+                {Number(stakerDetails.totalRewardsClaimed).toFixed(2)}
+              </Typography>
+            </Tooltip>
           </div>
         </div>
       </div>

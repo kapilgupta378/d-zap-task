@@ -6,6 +6,7 @@ import { useStake } from "@/hooks/ContractHooks/useStake";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useFormik } from "formik";
 import React from "react";
+import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import * as Yup from "yup";
 const StakeForm = () => {
@@ -25,12 +26,17 @@ const StakeForm = () => {
     validationSchema: Yup.object({
       stakeAmount: Yup.number().required("Stake Amount is required"),
     }),
-    onSubmit: (values) => {
-      if (!isConnected) {
-        open();
-        return;
+    onSubmit: async (values) => {
+      try {
+        if (!isConnected) {
+          open();
+          return;
+        }
+        await handleStack(values.stakeAmount.toString());
+        toast.success("Token staked successfully.");
+      } catch (error) {
+        toast.success("Something went wrong please try again later..");
       }
-      handleStack(values.stakeAmount.toString());
     },
   });
 

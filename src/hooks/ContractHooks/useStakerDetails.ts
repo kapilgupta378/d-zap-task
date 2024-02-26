@@ -4,8 +4,8 @@ import { useMemo } from "react";
 import { formatUnits } from "viem";
 
 export function useStakerDetails() {
-  const { address: userAddress  } = useAccount();
-  const { data ,refetch ,isLoading} = useReadContract({
+  const { address: userAddress } = useAccount();
+  const { data, refetch, isLoading } = useReadContract({
     functionName: "getStakerInfo",
     args: [userAddress],
     ...StakeContractConfig,
@@ -17,8 +17,8 @@ export function useStakerDetails() {
       return {
         exist: dataArray[0],
         stakedAmount: formatUnits(dataArray[1], 6),
-        unclaimedRewards: formatUnits(dataArray[3], 6),
-        claimCheckpoint: formatUnits(dataArray[4], 6),
+        unclaimedRewards: formatUnits(dataArray[2], 6),
+        claimCheckpoint: formatUnits(dataArray[3], 6),
         totalRewardsClaimed: formatUnits(dataArray[4], 6),
       };
     } else {
@@ -32,5 +32,7 @@ export function useStakerDetails() {
     }
   }, [data]);
 
-  return { stakerDetails ,refetch,isLoading };
+  console.log(data);
+
+  return { stakerDetails, refetch, isLoading };
 }
