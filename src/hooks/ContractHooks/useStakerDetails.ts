@@ -21,9 +21,9 @@ export function useStakerDetails() {
       return {
         exist: dataArray[0],
         stakedAmount: formatUnits(dataArray[1], 6),
-        unclaimedRewards: formatUnits(dataArray[2], 18),
+        unclaimedRewards: formatUnits(dataArray[2], 6),
         claimCheckpoint: formatUnits(dataArray[3], 6),
-        totalRewardsClaimed: formatUnits(dataArray[4], 18),
+        totalRewardsClaimed: formatUnits(dataArray[4], 6),
       };
     } else {
       return {
