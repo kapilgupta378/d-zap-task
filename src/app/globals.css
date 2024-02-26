@@ -6,3 +6,15 @@
     text-wrap: balance;
   }
 }
+
+.page_background {
+  background: linear-gradient(
+      101deg,
+      #030539 7.98%,
+      #010109 64.57%,
+      #110234 99.01%
+    )
+    no-repeat center center;
+  background-size: cover;
+  height: 100%;
+}
