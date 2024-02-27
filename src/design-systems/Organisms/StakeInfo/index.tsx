@@ -16,7 +16,7 @@ const StakeInfo = () => {
 
   const handleUnstack = async () => {
     try {
-      stakeReset;
+      stakeReset();
       await unStackToken();
       refetch();
       toast.success("Token unstake successfully.");
@@ -24,6 +24,7 @@ const StakeInfo = () => {
       toast.success("Something went wrong please try again later..");
     }
   };
+
   const handleClaim = async () => {
     try {
       reset();

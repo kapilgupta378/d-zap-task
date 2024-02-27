@@ -45,6 +45,7 @@ const StakeForm = () => {
     return <StakeFormLoading />;
   }
 
+
   return (
     <div
       style={{

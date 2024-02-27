@@ -13,7 +13,6 @@ import { State, WagmiProvider } from "wagmi";
 const queryClient = new QueryClient();
 
 if (!projectId) throw new Error("Project ID is not defined");
-console.log(projectId);
 
 // Create modal
 createWeb3Modal({
