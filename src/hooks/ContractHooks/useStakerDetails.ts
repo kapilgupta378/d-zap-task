@@ -11,6 +11,7 @@ export function useStakerDetails() {
     query: {
       refetchInterval: 2,
       refetchOnReconnect: true,
+      enabled: Boolean(userAddress),
     },
     ...StakeContractConfig,
   });
@@ -35,8 +36,6 @@ export function useStakerDetails() {
       };
     }
   }, [data]);
-
-  console.log(data);
 
   return { stakerDetails, refetch, isLoading };
 }

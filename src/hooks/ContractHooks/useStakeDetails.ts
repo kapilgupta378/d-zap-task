@@ -7,6 +7,9 @@ export function useStakerDetails() {
   const { data } = useReadContract({
     functionName: "getDetails",
     args: [userAddress],
+    query: {
+      enabled: Boolean(userAddress),
+    },
     ...StakeContractConfig,
   });
 

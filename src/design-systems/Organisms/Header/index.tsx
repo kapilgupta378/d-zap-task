@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   };
   return (
     <header className="py-8">
-      <div className="container px-16">
+      <div className="container mx-auto px-16">
         <div className="flex items-center justify-between">
           <Typography className="text-center text-white" size="h4">
             D-Zap
